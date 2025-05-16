@@ -123,6 +123,33 @@ ggplot(aes(x = Airline, y = Delayed_Percentage, fill = Airline)) +
 ```
 Here we can see that when we exclude Phoenix, the percentage of delayed flights from "AM WEST" increases by 8%!
 
+------------------------------------------------------------------------
+
+## Additional Analysis: Delay Status by City and Airline
+
+*Added by Alina Vikhnevich*
+
+Now that the dataset is cleaned and we’ve compared delay percentages overall, it’s useful to break down **delay status across cities for each airline**.
+
+This visualization highlights which cities contribute most to on-time or delayed performance.
+
+```{r alina_city_delay_plot, warning=FALSE, message=FALSE}
+# Plot delay status by city and airline
+tidy_flights %>%
+  ggplot(aes(x = City, y = n_Flights, fill = Status)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ Airline) +
+  scale_fill_manual(values = c("on time" = "steelblue", "delayed" = "tomato")) +
+  labs(
+    title = "Flight Delay Status by City and Airline",
+    x = "City", y = "Number of Flights", fill = "Status"
+  ) +
+  coord_flip() +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
 Conclusion
 
 Data might come in many different forms, and you may not be able to anticipate the ways in which it needs to be tidied upon initial inspection. For instance, I did not anticipate needing to change "Seattle" to a numerical vector, but as I entered the data wrong, it became necessary to continue.
