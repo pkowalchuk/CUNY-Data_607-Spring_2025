@@ -21,6 +21,7 @@ library(tidyverse)
 library(dplyr)
 library(ggplot2)
 untidy_flights <- read.csv("https://raw.githubusercontent.com/scrummett/DATA607/refs/heads/main/UntidyFlights.csv")
+# untidy_flights <- read_csv("https://raw.githubusercontent.com/scrummett/DATA607/refs/heads/main/UntidyFlights.csv")
 ```
 Here we have loaded the proper packages, and saved the data provided to us (that I also stored on github) in a table. From here we need to clean up the data.
 
@@ -28,7 +29,10 @@ Tidying the Data
 ```{r}
 untidy_flights <- untidy_flights |> 
   rename("Airline" = "X",
-         "Status" = "X.1")
+         "Status" = "X.1") 
+  # mutate(acroos(Los_Angeles:Seattle, ~as.numeric(gsub(",", "", .x)))) |>
+  # filter(!if_all(Los_Angeles:Seattle, is.na)) |>   # More concise NA filtering
+  # filter(Airline, .direction = "down")   # Explicit fill direction
 untidy_flights <- untidy_flights |> 
   rename_with(~ gsub(".", "_", .x, fixed = TRUE))
 ```
